@@ -7,16 +7,17 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { ChakraProvider } from "@chakra-ui/react";
 import { fetchUsers } from "./users/usersSlice";
+import theme from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 store.dispatch(fetchUsers());
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <Provider store={store}>
         <App />
-      </ChakraProvider>
-    </Provider>
+      </Provider>
+    </ChakraProvider>
   </React.StrictMode>
 );
 
