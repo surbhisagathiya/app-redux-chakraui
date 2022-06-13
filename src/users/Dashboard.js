@@ -93,6 +93,7 @@ function Dashboard() {
                 {property.reviewCount} reviews
               </Box>
             </Box>
+            <Button variant={{ base: 'base', bg: 'bg' }} mt={4}>Visit</Button>
           </Box>
         </Box>
       </Box>

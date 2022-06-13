@@ -21,6 +21,30 @@ const config = {
 };
 
 const theme = extendTheme({
+  components: {
+    Button: {
+      baseStyle: { width: "100%" },
+      sizes: {
+        sm: {
+          fontSize: "md",
+        },
+      },
+      variants: {
+        base: {
+          bg: "blue.400",
+          fontSize: "md",
+        },
+        sm: {
+          bg: "teal.500",
+          fontSize: "lg",
+        },
+        md: {
+          bg: "green.200",
+          fontSize: "xl",
+        },
+      },
+    },
+  },
   // styles: {
   //   global: {
   //     body: {
