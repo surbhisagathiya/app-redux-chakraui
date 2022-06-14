@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
   const users = await response.json();
-  console.log("users",users);
+  console.log("users", users);
   return users;
 });
 
@@ -18,11 +18,14 @@ const usersSlice = createSlice({
       state.entities.push(action.payload);
     },
     userUpdated(state, action) {
-      const { id, name, email } = action.payload;
+      const { id, name, email, gender, file, date } = action.payload;
       const existingUser = state.entities.find((user) => user.id === id);
       if (existingUser) {
         existingUser.name = name;
         existingUser.email = email;
+        existingUser.gender = gender;
+        existingUser.file = file;
+        existingUser.date = date;
       }
     },
     userDeleted(state, action) {

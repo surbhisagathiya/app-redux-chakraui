@@ -9,6 +9,9 @@ import {
   Heading,
   IconButton,
   Input,
+  Radio,
+  RadioGroup,
+  Stack,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -23,20 +26,34 @@ function AddUser() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [file, setFile] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [error, setError] = useState(null);
 
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
+  const handleGender = (e) => setGender(e.target.value);
+  const handleFile = (e) => {
+    const [file] = e.target.files;
+    setFile(URL.createObjectURL(file));
+    console.log(file.name);
+  };
+  const handleDate = (e) => setDate(e.target.value);
 
   const usersAmount = useSelector((state) => state.users.entities.length);
 
   const handleClick = () => {
-    if (name && email) {
+    console.log(name, email, gender, file, date);
+    if (name && email && gender && file && date) {
       dispatch(
         userAdded({
           id: usersAmount + 1,
           name,
           email,
+          gender,
+          file,
+          date,
         })
       );
       setError(null);
@@ -47,12 +64,15 @@ function AddUser() {
         position: "top-right",
         isClosable: true,
       });
-      navigate("/");
+      navigate("/userlist");
     } else {
       setError("Fill in All Field");
     }
     setName("");
     setEmail("");
+    setGender("");
+    setFile("");
+    setDate("");
   };
 
   return (
@@ -92,6 +112,41 @@ function AddUser() {
               _focus={{ boxShadow: "none" }}
             />
           </FormControl>
+
+          <FormControl>
+            <FormLabel>Gender</FormLabel>
+            <RadioGroup onChange={setGender} value={gender}>
+              <Stack direction="row">
+                <Radio value="Male" checked={gender == "Male"}>
+                  Male
+                </Radio>
+                <Radio value="Female" checked={gender == "Female"}>
+                  Female
+                </Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>File Upload</FormLabel>
+            <Input
+              type="file"
+              placeholder="Select File"
+              onChange={handleFile}
+              // value={" "}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>BirthDate</FormLabel>
+            <Input
+              type="date"
+              placeholder="select date"
+              onChange={handleDate}
+              value={date}
+            />
+          </FormControl>
+
           {error && error}
           <ButtonGroup
             variant="outline"

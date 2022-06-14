@@ -13,6 +13,9 @@ import {
   Heading,
   IconButton,
   Input,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
@@ -29,23 +32,30 @@ export function EditUser() {
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [gender, setGender] = useState(user.gender);
+  const [file, setFile] = useState(user.file);
+  const [date, setDate] = useState(user.date);
   const [error, setError] = useState(null);
 
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
-
+  const handleFile = (e) => setFile(e.target.files[0]);
+  const handleDate = (e) => setDate(e.target.value);
   const handleClick = () => {
-    if (name && email) {
+    if (name && email && gender && file && date) {
       dispatch(
         userUpdated({
           id: userId,
           name,
           email,
+          gender,
+          file,
+          date,
         })
       );
 
       setError(null);
-      navigate("/");
+      navigate("/userlist");
     } else {
       setError("Fill in all fields");
     }
@@ -88,6 +98,41 @@ export function EditUser() {
               _focus={{ boxShadow: "none" }}
             />
           </FormControl>
+
+          <FormControl>
+            <FormLabel>Gender</FormLabel>
+            <RadioGroup onChange={setGender} value={gender}>
+              <Stack direction="row">
+                <Radio value="Male" checked={gender == "Male"}>
+                  Male
+                </Radio>
+                <Radio value="Female" checked={gender == "Female"}>
+                  Female
+                </Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>File Upload</FormLabel>
+            <Input
+              type="file"
+              // placeholder="Select File"
+              onChange={handleFile}
+              // value={file}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>BirthDate</FormLabel>
+            <Input
+              type="date"
+              placeholder="select date"
+              onChange={handleDate}
+              value={date}
+            />
+          </FormControl>
+
           {error && error}
           <ButtonGroup
             variant="outline"

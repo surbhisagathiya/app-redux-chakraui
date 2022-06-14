@@ -1,9 +1,10 @@
-import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon, EditIcon, RepeatIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Container,
   Heading,
+  Image,
   Stack,
   Table,
   TableContainer,
@@ -14,6 +15,7 @@ import {
   Tr,
   Wrap,
 } from "@chakra-ui/react";
+import moment from "moment";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -62,35 +64,47 @@ function UserList() {
             "Loading"
           ) : (
             <TableContainer>
-              <Table>
+              <Table size="sm">
                 <Thead>
                   <Tr>
                     <Th>ID</Th>
                     <Th>Name</Th>
                     <Th>Email</Th>
+                    <Th>Gender</Th>
+                    <Th>Birthdate</Th>
+                    <Th>Image</Th>
                     <Th>Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {entities.map(({ id, name, email }, i) => (
-                    <Tr key={i}>
-                      <Td>{id}</Td>
-                      <Td>{name}</Td>
-                      <Td>{email}</Td>
-                      <Td>
-                        <Button
-                          colorScheme="red"
-                          onClick={() => handleDelete(id)}
-                          right="3"
-                        >
-                          Delete
-                        </Button>
-                        <Link to={`/edit-user/${id}`}>
-                          <Button colorScheme="blue">Edit</Button>
-                        </Link>
-                      </Td>
-                    </Tr>
-                  ))}
+                  {entities.map(
+                    ({ id, name, email, gender, file, date }, i) => (
+                      <Tr key={i}>
+                        <Td>{id}</Td>
+                        <Td>{name}</Td>
+                        <Td>{email}</Td>
+                        <Td>{gender}</Td>
+                        <Td>{moment(date).format("DD/MM/YYYY")}</Td>
+                        <Td>
+                          <Image src={file} borderRadius="100%" width={100} height={100} />
+                        </Td>
+                        <Td>
+                          <Button
+                            variant="ghost"
+                            color="red"
+                            onClick={() => handleDelete(id)}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                          <Link to={`/edit-user/${id}`}>
+                            <Button variant="ghost" color="blue">
+                              <EditIcon />
+                            </Button>
+                          </Link>
+                        </Td>
+                      </Tr>
+                    )
+                  )}
                 </Tbody>
               </Table>
             </TableContainer>

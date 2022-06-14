@@ -28,7 +28,7 @@ function Dashboard() {
   return (
     <>
       <Box justifyContent="space-between" display="flex" ms={8}>
-        <Heading as="h2">my app</Heading>
+        <Heading as="h2">My App</Heading>
         <header>
           <Button onClick={toggleColorMode} bg="transparent" mt={1}>
             {colorMode === "light" ? (
@@ -60,6 +60,7 @@ function Dashboard() {
               letterSpacing="wide"
               fontSize="xs"
               textTransform="uppercase"
+              color="gray.600"
               ml="2"
             >
               {property.beds} beds &bull; {property.baths} baths
@@ -93,9 +94,19 @@ function Dashboard() {
                 {property.reviewCount} reviews
               </Box>
             </Box>
-            <Button variant={{ base: 'base', bg: 'bg' }} mt={4}>Visit</Button>
+            <Button
+              style={{ width: "100%" }}
+              variant={{ base: "base", bg: "bg" }}
+              mt={4}
+            >
+              Visit
+            </Button>
           </Box>
         </Box>
+        <Button variant={{ base: "md", bg: "md" }}>OPen</Button>
+        <Button variant={{ base: "sm" }}>OPen</Button>
+        <Button variant={{ base: "base" }}>OPen</Button>
+        <Button variant={{ base: "md" }}>OPen</Button>
       </Box>
     </>
   );

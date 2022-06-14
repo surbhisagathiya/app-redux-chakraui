@@ -23,7 +23,7 @@ const config = {
 const theme = extendTheme({
   components: {
     Button: {
-      baseStyle: { width: "100%" },
+      // baseStyle: { width: "100%" },
       sizes: {
         sm: {
           fontSize: "md",
@@ -35,7 +35,7 @@ const theme = extendTheme({
           fontSize: "md",
         },
         sm: {
-          bg: "teal.500",
+          bg: "orange.200",
           fontSize: "lg",
         },
         md: {
